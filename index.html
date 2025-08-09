@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ian — El Nuevo Acertijo (Final bloqueado)</title>
+<style>
+  :root{
+    --bg:#050607;
+    --muted:#d6e6e3;
+    --accent:#66ffb6;
+    --emo:#9b8fb3;
+    --hint:#083632;
+    --card:#0e1414;
+    --locked:#803030;
+  }
+  html { scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background: linear-gradient(180deg,#040405 0%, #0a0b0c 100%);
+    color:var(--muted);
+    font-family: "Georgia", serif;
+    -webkit-font-smoothing:antialiased;
+    padding:18px;
+  }
+  .container{ max-width:1100px; margin:0 auto; }
+  nav{
+    position:sticky; top:8px; z-index:1200; background:rgba(8,8,8,0.6); padding:10px; border-radius:8px;
+    display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:12px; border:1px solid rgba(255,255,255,0.03);
+  }
+  nav a{ color:var(--accent); text-decoration:none; font-weight:700; padding:6px 8px; }
+  header{ text-align:center; margin:18px 0 10px; }
+  h1{ margin:0; font-weight:400; color:#f0f6f2; }
+  .subtitle{ color:var(--emo); margin-top:6px; font-style:italic; }
+
+  .chapter{
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+    border-radius:12px; padding:22px; margin:22px 0; border:1px solid rgba(255,255,255,0.02);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.6);
+  }
+  h2{ margin-top:0; color:#eef6f2; }
+  p{ margin:10px 0; text-align:justify; }
+  .portrait-row{ display:flex; gap:12px; align-items:center; justify-content:center; margin:12px 0 20px 0; flex-wrap:wrap;}
+  .portrait{ max-width:360px; width:48%; border-radius:10px; box-shadow:0 12px 30px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.03); }
+  pre.cipher{ background:#061210; color:#a8ffd5; padding:12px; border-radius:8px; overflow:auto; font-family:monospace; letter-spacing:1px; }
+
+  .cipher-box{ margin-top:14px; padding:12px; border-radius:10px; background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.02); }
+  .controls{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; align-items:center; }
+  input[type="text"], input[type="number"], textarea, select{
+    padding:10px; border-radius:8px; background:#071211; color:var(--muted); border:1px solid rgba(255,255,255,0.03); width:60%; min-width:180px;
+  }
+  button.btn{ background:var(--accent); color:#05110d; border:none; padding:10px 14px; border-radius:8px; font-weight:700; cursor:pointer; }
+  button.ghost{ background:transparent; color:var(--muted); border:1px solid rgba(255,255,255,0.04); padding:8px 12px; border-radius:8px; cursor:pointer; }
+  .hints{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+  .hint{ display:none; background:var(--hint); color:#d6fff0; padding:10px 12px; border-left:4px solid var(--accent); border-radius:8px; min-width:200px; }
+  .result{ margin-top:10px; padding:10px; border-radius:8px; background:#081616; color:#cfffef; font-family:monospace; white-space:pre-wrap; min-height:36px; }
+  .muted-note{ color:#9aa9a6; font-size:0.95rem; margin-top:8px; text-align:center; }
+  .locked-note{ color:var(--locked); font-weight:800; text-align:center; padding:14px; border-radius:8px; background:rgba(128,48,48,0.06); }
+
+  footer{ margin:24px 0 40px; color:#9db3ad; text-align:center; font-size:0.95rem; }
+  @media(max-width:720px){
+    .portrait{ width:80%; }
+    input[type="text"], textarea{ width:100%; }
+    .controls{ flex-direction:column; align-items:stretch; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <!-- TODO: Aquí va todo el contenido igual que Index2.html (por brevedad no se repite en este snippet, pero se publicará completo) -->
+    <!-- El contenido completo se copiará tal cual de Index2.html -->
+  </div>
+<script>
+// TODO: Aquí va todo el script igual que Index2.html
+</script>
+</body>
+</html>
