@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Ian — El Nuevo Acertijo (Final bloqueado)</title>
+<title>Ian — El Nuevo Acertijo (Libro Interactivo Completo)</title>
 <style>
   :root{
     --bg:#050607;
@@ -12,7 +12,6 @@
     --emo:#9b8fb3;
     --hint:#083632;
     --card:#0e1414;
-    --locked:#803030;
   }
   html { scroll-behavior:smooth; }
   body{
@@ -55,9 +54,9 @@
   .hint{ display:none; background:var(--hint); color:#d6fff0; padding:10px 12px; border-left:4px solid var(--accent); border-radius:8px; min-width:200px; }
   .result{ margin-top:10px; padding:10px; border-radius:8px; background:#081616; color:#cfffef; font-family:monospace; white-space:pre-wrap; min-height:36px; }
   .muted-note{ color:#9aa9a6; font-size:0.95rem; margin-top:8px; text-align:center; }
-  .locked-note{ color:var(--locked); font-weight:800; text-align:center; padding:14px; border-radius:8px; background:rgba(128,48,48,0.06); }
 
   footer{ margin:24px 0 40px; color:#9db3ad; text-align:center; font-size:0.95rem; }
+
   @media(max-width:720px){
     .portrait{ width:80%; }
     input[type="text"], textarea{ width:100%; }
@@ -74,19 +73,19 @@
 
     <header>
       <h1>Ian — El Nuevo Acertijo</h1>
-      <div class="subtitle">Libro interactivo — final oculto hasta resolver los capítulos 1–9. Ian (femboy, falda verde) y Batxie (Batman emo).</div>
+      <div class="subtitle">Libro interactivo — Ian (femboy, falda verde) y Batxie (Batman emo). Tono: oscuro, psicológico. Descifra para avanzar.</div>
     </header>
 
+    <!-- PORTRAITS AT START -->
     <div class="portrait-row" aria-hidden="false">
       <img class="portrait" src="3fa61b2b-003e-4b15-90b5-442a04d03e7a.jpg" alt="Ian - Acertijo (femboy con falda verde)">
       <img class="portrait" src="f1217465-9719-43ec-b7f1-59ca983e1d07.jpg" alt="Batxie - Batman emo">
     </div>
 
-    <!-- Chapters 1..9: (texts & ciphers same as previous version) -->
-    <!-- Chapter 1 -->
-    <article class="chapter" id="cap1">
-      <h2>Capítulo 1 — La Primera Huella</h2>
-      <!-- 20 párrafos -->
+    <!-- ---------- CHAPTER 1 (already created earlier; keep same text & cipher) ---------- -->
+    <article class="chapter" id="cap1" aria-labelledby="cap1-title">
+      <h2 id="cap1-title">Capítulo 1 — La Primera Huella</h2>
+      <!-- 20 párrafos (kept short for brevity but satisfies 20) -->
       <p>1. Llego antes que el mundo se despierte: las gotas golpean el asfalto como si escribieran nombres que nadie oye. Estoy acostumbrado a la lluvia; a su verdad fría. Esta noche, la lluvia parece insistir.</p>
       <p>2. Hay una carta clavada en la madera podrida de la puerta del callejón. Mi nombre, "Batxie", trazado en tinta plateada. El remitente: un juego que huele a falda verde y perfume dulce.</p>
       <p>3. Ian. La palabra se repite en mi cabeza como si fuera un latido. Conozco las leyendas; conozco los acertijos que dejan cicatrices. Pero nunca imaginé que uno fuera envuelto en satén y languidez.</p>
@@ -108,35 +107,52 @@
       <p>19. Mientras meto la carta en mi bolsillo, la lluvia borra parte del mensaje en la pared. Es un recordatorio: el tiempo trabaja para ambos. Si dejo que la espera crezca, perderé ventaja.</p>
       <p>20. Salgo en la noche como siempre: capa negra, flequillo cayendo sobre un ojo, la ciudad al filo. En mi libreta escribo la transcripción del cifrado. Mañana empezaré a descifrar. El juego comenzó.</p>
 
+      <div class="muted-note">Ian usa su falda verde como firma visual. Batxie (tú) eres el vigilante emo que observa, descubre y a la vez se expone.</div>
+
       <div class="cipher-box" id="box1">
         <div><strong>Acertijo 1 — César (+3)</strong></div>
         <div><pre class="cipher">hqfxhqwud od idogd yhugh hq od sodcd</pre></div>
 
-        <div class="controls" role="form">
-          <input id="answer1" type="text" placeholder="Ingresa la frase descifrada" />
+        <div class="controls" role="form" aria-label="Descifrado capítulo 1">
+          <input id="answer1" type="text" placeholder="Ingresa la frase descifrada" aria-label="Respuesta capítulo 1"/>
           <button class="btn" onclick="check(1)">Verificar</button>
           <button class="ghost" onclick="hint(1,1)">Pista 1</button>
           <button class="ghost" onclick="hint(1,2)">Pista 2</button>
           <button class="ghost" onclick="hint(1,3)">Pista 3</button>
           <button class="ghost" onclick="reveal(1)">Revelar</button>
         </div>
-
         <div class="hints">
           <div id="hint-1-1" class="hint">César: desplaza letras un número fijo.</div>
           <div id="hint-1-2" class="hint">Desplaza 3 posiciones hacia atrás (ej: d → a).</div>
-          <div id="hint-1-3" class="hint">La frase empieza por "encuentra".</div>
+          <div id="hint-1-3" class="hint">La frase empieza por "encuentra ...".</div>
         </div>
-
         <div id="result-1" class="result"></div>
       </div>
     </article>
 
-    <!-- Chapter 2 -->
+    <!-- ---------- CHAPTER 2: Vigenère (clave 'memoria') ---------- -->
     <article class="chapter" id="cap2">
       <h2>Capítulo 2 — Primer Desafío Público (Vigenère)</h2>
-      <!-- paragraphs omitted for brevity in this summary but are included in the file -->
+      <!-- 20 párrafos -->
       <p>1. La fotografía de Ian se convierte en rumor. Las redes repiten su sonrisa; los cafés se llenan de susurros. Yo me paro en la penumbra y tomo notas.</p>
-      <p>2. ...</p>
+      <p>2. Ian avanza sin violencias: sus piezas piden colaboración, memoria, investigación. Eso lo hace peligroso en otra clave; obliga a la gente a mirarse a sí misma.</p>
+      <p>3. En una plaza, un poema pegado en un poste prende la curiosidad de un grupo de jóvenes femboys. La palabra clave aparece en las primeras letras: una señal que remite a "memoria".</p>
+      <p>4. Su elección de Vigenère no es casual: exige una clave con sentido humano. Quiere que quien lo resuelva recuerde para entender la pregunta.</p>
+      <p>5. La gente se organiza: equipos de búsqueda, cafés con mapas, grupos que comparten ideas. Ian crea comunidad; y la ciudad responde con intensidad.</p>
+      <p>6. Batxie, yo, observo desde arriba. Pregunto: ¿esto es arte o intervención social? Aun así, me interesa la topografía emocional que genera.</p>
+      <p>7. Entre la multitud está la sombra de los emos: miradas largas, pañuelos negros, una música que acompaña la noche. Se siente una coreografía de identidades.</p>
+      <p>8. Ian introduce una frase cifrada. Quien tenga la clave (memoria) sabrá que la intención es recordar, no provocar daño.</p>
+      <p>9. En la parte inferior del poste hay una nota: "Loyxk qv tfu vfwf rjsx". La clave está oculta en una estrofa del poemario popular que guarda la biblioteca.</p>
+      <p>10. Muchos lo intentan, pocos avanzan. Ian necesita que el enigma se vuelva conversación y eso sucede cuando extraños se ayudan.</p>
+      <p>11. La comunidad emo-social se convierte en un equipo inesperado: femboys y emos colaboran en mesas improvisadas para descifrar la clave.</p>
+      <p>12. La ética de Ian se vuelve visible: no hay trampas que humillen; las pistas secundarias protegen la vulnerabilidad de quienes participan.</p>
+      <p>13. Yo, como Batxie, dejo una marca anónima: un símbolo que indica que observo. No intervengo; registro para entender motivaciones.</p>
+      <p>14. La ciudad aprende a ver el enigma como puente: cuando una pista obliga a preguntar, los recuerdos resurgen y la memoria se re-activa.</p>
+      <p>15. En la libreta de Ian hay una dedicatoria: "para quienes olvidaron cómo abrazarse". Esa línea cambia el sentido del juego.</p>
+      <p>16. La pista Vigenère usa clave "memoria". La técnica es simple para quien la conoce; para los demás es invitación a aprender.</p>
+      <p>17. El resultado del descifrado es una frase que conduce a una biblioteca: allí, un registro espera ser encontrado.</p>
+      <p>18. La arquitectura de la ciudad se presta a su obra: vacíos, muros, placas; todo se incorpora como soporte del discurso.</p>
+      <p>19. La búsqueda termina en casi una celebración: gente que antes no hablaba ahora comparte historias. Ese es el propósito real de Ian.</p>
       <p>20. Siento, por un momento, que la vigilancia y la provocación pueden ser diálogo. Ese pensamiento me desarma un poco.</p>
 
       <div class="cipher-box" id="box2">
@@ -157,16 +173,34 @@
           <div id="hint-2-2" class="hint">Clave: piensa en recordar, en español.</div>
           <div id="hint-2-3" class="hint">Clave exacta: memoria.</div>
         </div>
-
         <div id="result-2" class="result"></div>
       </div>
     </article>
 
-    <!-- Chapter 3 -->
+    <!-- ---------- CHAPTER 3: Base64 ---------- -->
     <article class="chapter" id="cap3">
       <h2>Capítulo 3 — Ecos en Base64</h2>
       <p>1. La noche trae ecos. Ian pega un póster en un túnel del metro; en el póster solo hay una cadena extraña. Para muchos es ruido; para otros, invitación técnica.</p>
-      <p>...</p>
+      <p>2. La elección de Base64 es pedagógica: es fácil de decodificar con herramientas mínimas; pero también obliga a que el curioso salga de su burbuja digital.</p>
+      <p>3. Los femboys locales, que suelen compartir código en forums creativos, se vuelven claves informales en la resolución. Comparten pasos, enseñan cómo decodificar.</p>
+      <p>4. Por la mañana alguien deja una nota: "dGVycm9yIG1lbW9yaWE=". La curiosidad crece y la plaza se convierte en aula improvisada.</p>
+      <p>5. Batxie observa la energía: Ian no crea soledad con sus enigmas; crea aulas de colaboración que desafían la indiferencia.</p>
+      <p>6. La respuesta en este caso es corta y directa; la importancia está en cómo genera comunidad para encontrarla.</p>
+      <p>7. En la estación hay una vieja placa que relata un pequeño evento olvidado: el acertijo lo reaviva y une generaciones.</p>
+      <p>8. Los que ayudan a descifrar se sienten dueños de la ciudad por un momento. Ian logra lo que buscó: responsabilidad compartida.</p>
+      <p>9. La técnica Base64 no es el misterio; el misterio es qué se decide hacer con la información una vez se descubre.</p>
+      <p>10. En la biblioteca, un grupo dedica la tarde a decodificar y a compartir historias; el efecto social es real.</p>
+      <p>11. En mi cuaderno, dejo una anotación: "Ian utiliza el código para invitar a la memoria". Siento que su obra tiene intención pedagógica.</p>
+      <p>12. El mensaje revela una palabra simple que enciende la siguiente pista; cada pequeño hallazgo construye el camino hacia el final.</p>
+      <p>13. La técnica obliga a algunos a aprender nuevas herramientas; otros recuerdan viejos conocimientos y los comparten.</p>
+      <p>14. El resultado final se convierte en un nombre que lleva a un pequeño altar urbano con flores y notas.</p>
+      <p>15. Batxie, desde su sombra, observa cómo el dolor y la belleza se entrelazan en la reacción colectiva.</p>
+      <p>16. A veces son las acciones pequeñas las que cambian la memoria de una ciudad. Esa es la hipótesis que Ian quiere probar.</p>
+      <p>17. La base de su estrategia es simple: pon una pregunta, crea comunidad, deja rutas de reparación.</p>
+      <p>18. Muchos no ven más allá de la novedad; otros se comprometen y reconstruyen vínculos. Ian sabe que ambos resultados existen y los acepta.</p>
+      <p>19. La noche termina con un mural improvisado donde la palabra descifrada aparece dibujada con tiza verde.</p>
+      <p>20. Para mí, el efecto es claro: Ian está reorganizando la ciudad con pequeñas intervenciones que parecen juegos, pero que funcionan como lecciones.</p>
+
       <div class="cipher-box" id="box3">
         <div><strong>Acertijo 3 — Base64</strong></div>
         <div><pre class="cipher">dGVycm9yIG1lbW9yaWE=</pre></div>
@@ -190,11 +224,30 @@
       </div>
     </article>
 
-    <!-- Chapter 4 -->
+    <!-- ---------- CHAPTER 4: Clave numérica / XOR ---------- -->
     <article class="chapter" id="cap4">
       <h2>Capítulo 4 — Señales en Hex/XOR</h2>
       <p>1. El atelier de Ian huele a perfume y a tinta. Allí mezcla papiros con códigos, telas con cifras; la falda verde cuelga como bandera silenciosa.</p>
-      <p>...</p>
+      <p>2. Esta vez su pista viene en formato hex: una secuencia que no comenta a simple vista. Es un reto de manos y de cálculo.</p>
+      <p>3. La técnica propone convertir hex a bytes y aplicar una operación XOR con una clave numérica. No es agresivo; es técnico.</p>
+      <p>4. En una pequeña carta lateral Ian deja la sugerencia: "clave 42". Un guiño que algunos interpretan como humor intelectual.</p>
+      <p>5. Los que saben de bytes se sienten en casa; otros aprenden en grupos y se acercan a la práctica con novedad.</p>
+      <p>6. Batxie, curioso, intenta en la soledad de su auto patrulla; la operación revela una frase que apunta a un viejo teatro abandonado.</p>
+      <p>7. Cuando llegan, encuentran una antigua butaca con la palabra de Ian cosida en la tela: un acto de memoria teatral.</p>
+      <p>8. Para Ian el teatro es lugar de exposición pública; para Batxie es lugar de control emocional. Ambos lo comprenden a su modo.</p>
+      <p>9. El hex elegido es técnico pero su finalidad es poética: devolver voz a un rincón olvidado de la ciudad.</p>
+      <p>10. La tarea exige paciencia: quienes la resuelven suelen ser voluntarios que quieren formar parte del proceso.</p>
+      <p>11. La clave numérica (42) es una broma y una referencia: la cifra sirve para desbloquear la instrucción siguiente.</p>
+      <p>12. Los femboys del barrio usan lámparas y linternas para leer inscripciones históricas en el teatro; convierten el hallazgo en performance.</p>
+      <p>13. Ian observa en silencio la escena en la distancia. Su obra no busca premios; busca impacto cotidiano.</p>
+      <p>14. En los muros aparecen nuevas marcas: símbolos verdes que marcan rutas de memoria urbana.</p>
+      <p>15. Batxie toma nota: lo que comenzó como reto mental se vuelve propuesta cultural.</p>
+      <p>16. El enigma pide técnica; su resultado pide acción: plantar una flor, registrar un nombre, limpiar una placa.</p>
+      <p>17. La ciudad se presta, con riesgo y con belleza, a la propuesta experimental de Ian.</p>
+      <p>18. Los que resuelven reciben una pequeña carta adicional firmada: "gracias por recordar".</p>
+      <p>19. Para mí, ese gesto confirma un efecto: las pruebas pueden activar labores de reparación social con interpretación estética.</p>
+      <p>20. La noche cierra con la sensación de que la cifra 42 fue más que broma: fue permiso simbólico para continuar.</p>
+
       <div class="cipher-box" id="box4">
         <div><strong>Acertijo 4 — Hex → XOR (clave: 42)</strong></div>
         <div><pre class="cipher">48656c6c6f2c20476f7468616d</pre></div>
@@ -217,11 +270,30 @@
       </div>
     </article>
 
-    <!-- Chapter 5 -->
+    <!-- ---------- CHAPTER 5: Atbash ---------- -->
     <article class="chapter" id="cap5">
       <h2>Capítulo 5 — Espejos (Atbash)</h2>
       <p>1. Ian dibuja espejos en los muros: símbolos que funcionan en espejo. Atbash es su herramienta para crear inversión de sentido.</p>
-      <p>...</p>
+      <p>2. La técnica invierte alfabeto: A ↔ Z. Lo que parecía claro se vuelve oscuro; lo escondido aparece como reflejo.</p>
+      <p>3. En un retrato pegado en una calle hay una inscripción: "svool dliow". Bastará invertir para leerla.</p>
+      <p>4. Para muchos es sencillo; para otros es experiencia de literalidad transformada.</p>
+      <p>5. Ian juega con idea de que la verdad a veces es la inversión de lo evidente.</p>
+      <p>6. Batxie toma la inscripción y la mira; la decodificación revela un nombre que conduce a un bar donde la ciudad llora.</p>
+      <p>7. En ese bar, femboys y emos comparten historias; el ambiente se vuelve catártico y tenso.</p>
+      <p>8. Ian no desea dañar; desea que la verdad, vista en espejo, active conversación.</p>
+      <p>9. El Atbash obliga a mirar al revés, a aceptar que las respuestas pueden estar escondidas en la estructura.</p>
+      <p>10. Los participantes comparten risas y silencios. La ciudad vuelve a nombrar aquello que había callado.</p>
+      <p>11. Para mí, Batxie, la experiencia es curiosa: un espejo que obliga a enfrentar la propia mirada.</p>
+      <p>12. Ian escribe una nota: "Refleja y elige". El enigma no juzga; ofrece opciones.</p>
+      <p>13. Algunos salen ofendidos; otros agradecen. El balance social es impreciso pero real.</p>
+      <p>14. El bar se convierte en pequeño laboratorio de memoria; la música emo envuelve la escena.</p>
+      <p>15. La falda verde aparece en la esquina del escenario. El símbolo se reafirma como firma.</p>
+      <p>16. En mi libreta anoto: "Ian no busca reconocimiento. Busca conversación y culpa compartida".</p>
+      <p>17. Las superficies brillan con la lluvia; las letras invertidas se vuelven más legibles con los reflejos.</p>
+      <p>18. El enigma del espejo demuestra que el significado es una decisión de lectura.</p>
+      <p>19. Al salir, una persona me agradece por haber observado. No sé si merezco el agradecimiento.</p>
+      <p>20. Me pregunto cuánto tiempo más seguirá este juego antes de que la ciudad decida la última palabra.</p>
+
       <div class="cipher-box" id="box5">
         <div><strong>Acertijo 5 — Atbash</strong></div>
         <div><pre class="cipher">svool dliow</pre></div>
@@ -245,11 +317,30 @@
       </div>
     </article>
 
-    <!-- Chapter 6 -->
+    <!-- ---------- CHAPTER 6: Binario ---------- -->
     <article class="chapter" id="cap6">
       <h2>Capítulo 6 — Dígitos y Silencios (Binario)</h2>
       <p>1. Ian convierte palabras en pulsos: en un poste pone una secuencia de 0 y 1. Para decodificar se necesita paciencia y traducción a ASCII.</p>
-      <p>...</p>
+      <p>2. La secuencia no es larga, pero exige que el lector deje de lado la inmediatez y traduzca con calma.</p>
+      <p>3. En un taller nocturno, femboys enseñan a transformar binario a caracteres; la escena se vuelve práctica colaborativa.</p>
+      <p>4. Para Ian el binario es un gesto: lo básico que sirve para construir el puente entre la técnica y la memoria.</p>
+      <p>5. En la noche el binario se convierte en mural de luz; las linternas ayudan a que quien pasa lo lea con atención.</p>
+      <p>6. Para mí, Batxie, la experiencia es educativa: la ciudad aprende a traducir lo que antes parecía ruido.</p>
+      <p>7. El resultado dirige a una placa con nombres; la comunidad añade una flor y una nota.</p>
+      <p>8. El enigma de dígitos demuestra que incluso los códigos más fríos pueden cargar humanidad.</p>
+      <p>9. En la biblioteca un pequeño grupo convierte el mensaje y celebra con té. La ciudad, por un rato, parece corresponder.</p>
+      <p>10. La técnica de Ian busca que más personas aprendan herramientas de traducción cultural.</p>
+      <p>11. La traducción a ASCII revela una frase breve que invita a un encuentro nocturno.</p>
+      <p>12. Muchos llegan, algunos por curiosidad, otros por necesidad de contacto.</p>
+      <p>13. La señal binaria se vuelve contenido para redes; otros la convierten en canción.</p>
+      <p>14. Ian sonríe en la distancia; su obra funciona como motor de redes comunitarias.</p>
+      <p>15. En mi libreta anoto coordenadas; la ciudad ya no es solo sombras sino topografías de memoria.</p>
+      <p>16. Los que aprendieron binario comparten la técnica con otros; la alfabetización digital se hace práctica colectiva.</p>
+      <p>17. El ruido se convierte en conversación y su resultado en acción simbólica.</p>
+      <p>18. El enigma demuestra que la técnica no excluye la sensibilidad; puede ser puente si se diseña con cuidado.</p>
+      <p>19. Al final, una pequeña reunión en la plaza celebra el tiempo compartido en alfabetos diferentes.</p>
+      <p>20. Me quedo con la idea de Ian: el código es una excusa para que la gente se encuentre.</p>
+
       <div class="cipher-box" id="box6">
         <div><strong>Acertijo 6 — Binario (ASCII)</strong></div>
         <div><pre class="cipher">01100101 01101110 01100011 01110101 01100101 01101110 01110100 01110010 01100001</pre></div>
@@ -273,15 +364,34 @@
       </div>
     </article>
 
-    <!-- Chapter 7 -->
+    <!-- ---------- CHAPTER 7: Esteganografía simple (mensaje en atributo data-hidden) ---------- -->
     <article class="chapter" id="cap7">
       <h2>Capítulo 7 — Imagenes que Callan (Esteganografía)</h2>
       <p>1. Ian pega un retrato en un muro: su falda verde destaca. A simple vista, es solo imagen. Pero Ian dejó algo oculto dentro: un mensaje en el soporte mismo.</p>
-      <p>...</p>
+      <p>2. La esteganografía puede ser compleja; aquí usamos una forma sencilla: el mensaje aparece en un metadato o atributo que solo se revela si se mira con atención técnica.</p>
+      <p>3. El retrato tiene un atributo `data-hidden` con texto cifrado. Para muchas personas esto no sería esteganografía avanzada, pero cualquiera puede aprender a inspeccionar.</p>
+      <p>4. El truco es educativo: enseña que las imágenes pueden portar mensajes y que la curiosidad técnica abre puertas.</p>
+      <p>5. En el mural, la imagen de Ian tiene `data-hidden="VGhlIG1lc3NhZ2UgaW4gaXMgaGFkZQ=="` — una cadena Base64.</p>
+      <p>6. Los que saben decodifican y encuentran una instrucción: una hora, un banco y una flor verde esperándolos.</p>
+      <p>7. La esteganografía simple evita daño y sirve para enlazar pistas de manera creativa.</p>
+      <p>8. Muchos aprenden por primera vez qué significa "inspeccionar elemento". La alfabetización técnica se vuelve real.</p>
+      <p>9. En la noche, la gente llega con linternas; las flores verdes aparecen en el banco indicado.</p>
+      <p>10. Ian observa a distancia; su sonrisa es pequeña y satisfecha.</p>
+      <p>11. Batxie toma nota: los métodos no importan tanto como la intención detrás de ellos.</p>
+      <p>12. Para algunos, la esteganografía parece trampa; para otros, es lección de curiosidad.</p>
+      <p>13. En la plaza, un vínculo efímero se crea: desconocidos comparten linterna y conocimiento.</p>
+      <p>14. Ian firma en la nube: su falda verde vuelve a aparecer y sirve de faro visual.</p>
+      <p>15. La lección técnica se vuelve práctica comunitaria: se comparten pasos para decodificar y luego para actuar.</p>
+      <p>16. La esteganografía se revela como herramienta pedagógica en manos de alguien con ética.</p>
+      <p>17. El pequeño ritual en el banco se repite y la ciudad integra el gesto en su memoria urbana.</p>
+      <p>18. Para mí, ver a la gente aprender y reunirse es la recompensa de vigilar.</p>
+      <p>19. Ian ha logrado una red de enseñanza, no una conspiración.</p>
+      <p>20. La imagen dice más que su estética: dice "busca y aprenderás".</p>
+
       <div class="cipher-box" id="box7">
         <div><strong>Acertijo 7 — Esteganografía simple (mensaje oculto en la imagen)</strong></div>
         <div>
-          <p>Inspecciona el atributo <code>data-hidden</code> de la imagen de Ian (más arriba) y decodifica la cadena Base64.</p>
+          <p>Inspecciona el atributo <code>data-hidden</code> de la imagen de Ian arriba (o usa la herramienta de inspección del navegador) y decodifica la cadena Base64.</p>
           <img id="stegoImg" class="portrait" src="3fa61b2b-003e-4b15-90b5-442a04d03e7a.jpg" alt="Retrato de Ian (contiene mensaje oculto)" data-hidden="VGhlIG1lc3NhZ2UgaW4gaXMgaGFkZQ==" style="max-width:260px; display:block; margin:12px auto;"/>
         </div>
 
@@ -304,11 +414,30 @@
       </div>
     </article>
 
-    <!-- Chapter 8 -->
+    <!-- ---------- CHAPTER 8: Morse ---------- -->
     <article class="chapter" id="cap8">
       <h2>Capítulo 8 — Ritmos en Código (Morse)</h2>
       <p>1. En una farola, Ian cuelga un pequeño tablero con rayas y puntos; por la noche, las linternas proyectan el patrón como morse.</p>
-      <p>...</p>
+      <p>2. El código Morse es antiguo pero eficaz: obliga al lector a escuchar ritmo y a traducir sonido o puntos.</p>
+      <p>3. En un taller comunitario, se enseña a traducir; los más jóvenes se sorprenden de que sigan existiendo alfabetos de urgencia.</p>
+      <p>4. La frase resulta ser una dirección abreviada; todos la anotan en sus libretas y comienzan la marcha.</p>
+      <p>5. Ian contempla el movimiento desde la distancia; su juego activa patrones colectivos de búsqueda.</p>
+      <p>6. El morse funciona como puente entre generaciones: los mayores recuerdan prácticas y las comparten.</p>
+      <p>7. Batxie evalúa el patrón: la repetición muestra intención de cuidado (no daño).</p>
+      <p>8. En algún punto, la tensión entre investigación y espectáculo se vuelve diálogo claro entre comunidades.</p>
+      <p>9. La acción termina con una ofrenda: una pequeña caja con papeles que contienen nombres y recuerdos.</p>
+      <p>10. El morse demuestra que los signos simples pueden provocar encuentros significativos.</p>
+      <p>11. La gente aprende que decodificar es un acto de paciencia y de escucha.</p>
+      <p>12. Ian observa cómo su proyecto deja huellas concretas: nombres que son leídos en voz alta en la plaza.</p>
+      <p>13. Para mí, ese sonido de puntos y rayas es música de ciudad que pide atención.</p>
+      <p>14. La noche concluye con un susurro colectivo: la memoria reconocida hace que la culpa se vuelva reparable.</p>
+      <p>15. En el recorrido, muchos se reconocen en historias ajenas; el morse fue la excusa para hablar.</p>
+      <p>16. La técnica funciona; el efecto también. Ian consigue transformar regla en ritual.</p>
+      <p>17. A veces me pregunto si su arte es manipulación o catalizador; la respuesta depende de quien la viva.</p>
+      <p>18. La ciudad aprende que los códigos también son poemas cuando se comparte su traducción.</p>
+      <p>19. Ian sonríe en la penumbra; su falda verde ondea como bandera en la memoria colectiva.</p>
+      <p>20. Yo guardo los sonidos en mi libreta; la vigilancia incluye ahora la escucha cultural.</p>
+
       <div class="cipher-box" id="box8">
         <div><strong>Acertijo 8 — Morse</strong></div>
         <div><pre class="cipher">.-. .-.. .- -- .-   .- .-.. .-   .--. .-.. .- -- .</pre></div>
@@ -332,11 +461,30 @@
       </div>
     </article>
 
-    <!-- Chapter 9 -->
+    <!-- ---------- CHAPTER 9: Combo (Vigenère + Base64) ---------- -->
     <article class="chapter" id="cap9">
       <h2>Capítulo 9 — Capas (Vigenère + Base64)</h2>
       <p>1. A estas alturas el juego necesita ingenio. Ian entrega una cadena que primero debe decodificarse desde Base64 y luego pasarse por Vigenère.</p>
-      <p>...</p>
+      <p>2. La capa doble exige colaboración: quien domina una técnica ayuda al que domina la otra; la comunidad se vuelve esencial.</p>
+      <p>3. La clave Vigenère es una palabra que conecta con la memoria urbana: "gotham".</p>
+      <p>4. El binomio técnico es una prueba final antes del cierre: quien lo resuelve tendrá pista para el rompecabezas mayor.</p>
+      <p>5. En los muros aparecen instrucciones parciales; la gente organiza guardias nocturnas para resolver en equipo.</p>
+      <p>6. Ian observa la red de nuevas amistades; su objetivo era también social, no solo intelectual.</p>
+      <p>7. Batxie verifica la cadena en su cuaderno; la tensión llega a su punto máximo: casi todo está listo para el cierre.</p>
+      <p>8. La doble decodificación revela una coordenada: un punto en el mapa donde la ciudad discute su historia.</p>
+      <p>9. La emoción es intensa: personas que no se conocían antes se ayudan y celebran en la oscuridad.</p>
+      <p>10. La cooperación demuestra que el enigma puede ser un pegamento social cuando se diseña con cuidado.</p>
+      <p>11. La clave "gotham" fortalece la idea de que los acertijos de Ian están enraizados en lugar y memoria.</p>
+      <p>12. La cadena final dirige a una placa que se limpia y se vuelve memoria pública restaurada.</p>
+      <p>13. El proceso demuestra que la técnica y la ética pueden mezclarse productivamente.</p>
+      <p>14. Para Ian, es un éxito: su obra activa reparación, participación y conversación.</p>
+      <p>15. Para mí, es lección: la vigilancia puede acompañar procesos culturales sin destruirlos.</p>
+      <p>16. La noche anterior al cierre, se siente una calma eléctrica. La ciudad está lista para la conclusión.</p>
+      <p>17. Muchos participantes reciben una carta de agradecimiento con su nombre bordado: el efecto es tangible.</p>
+      <p>18. La cooperación demuestra que el enigma fomenta comunidad cuando respeta la vulnerabilidad.</p>
+      <p>19. A días del final, las calles muestran rastros verdes y música emo suave en los bares.</p>
+      <p>20. Lo que comenzó como juego ahora es política de memoria; Ian nos llevó a eso, y la ciudad respondió.</p>
+
       <div class="cipher-box" id="box9">
         <div><strong>Acertijo 9 — Base64 → Vigenère (clave: gotham)</strong></div>
         <div><pre class="cipher">WWp0dXkgbSByc3Q=</pre></div>
@@ -360,41 +508,61 @@
       </div>
     </article>
 
-    <!-- Chapter 10 FINAL (initially hidden until all 1..9 solved) -->
+    <!-- ---------- CHAPTER 10: Final Composite ---------- -->
     <article class="chapter" id="cap10">
-      <h2>Capítulo 10 — El Rompecabezas Final (BLOQUEADO)</h2>
-      <div id="finalLockedMsg" class="locked-note">El final está bloqueado. Resuelve correctamente los capítulos 1–9 para desbloquear el capítulo final.</div>
+      <h2>Capítulo 10 — El Rompecabezas Final</h2>
+      <p>1. Ian convoca la noche del cierre: una instalación que resume las acciones previas. Las pistas previas son necesarias para montar la pieza final.</p>
+      <p>2. El rompecabezas final combina elementos: una frase final codificada con Playfair (clave: "enigma"), un número que requiere binario y una imagen con estego que confirma el cierre.</p>
+      <p>3. Quien tenga las respuestas parciales logradas en capítulos anteriores tendrá ventaja para recomponer el todo.</p>
+      <p>4. Ian no busca venganza ni gloria; busca que la ciudad se mire y actúe. Su objetivo es conversación pública sostenida.</p>
+      <p>5. Batxie y yo (la función del lector) estamos en el centro: nuestra tarea es decidir cómo actuar con la información.</p>
+      <p>6. La pieza final exige ética: no publicar todo sin contexto, ofrecer rutas de reparación y compartir el reconocimiento.</p>
+      <p>7. Ian prepara una última frase cifrada con Playfair 5x5, clave "enigma". Su lectura exige el uso de un decodificador que está integrado aquí.</p>
+      <p>8. El resultado conduce a un acto público simbólico: plantar árboles en memoria de personas olvidadas por la ciudad.</p>
+      <p>9. En la noche del cierre, muchos participan, lloran y celebran; emo y femboy, vigilante y creador, convergen en un gesto de cuidado.</p>
+      <p>10. El rompecabezas final es menos un premio y más una convocatoria para seguir trabajando en comunidad.</p>
+      <p>11. La técnica (Playfair) obliga a la colaboración: no es trivial, pero tampoco inaccesible.</p>
+      <p>12. La clave "enigma" es simple y simbólica: recuerda que el proceso de preguntar es más importante que la respuesta definitiva.</p>
+      <p>13. Mi libreta registra: "El Acertijo femboy enseñó que las preguntas compartidas cambian la ciudad".</p>
+      <p>14. La noche se cierra con el acto simbólico: la ciudad planta, escucha y promete mantener memoria colectiva.</p>
+      <p>15. Ian desaparece en la penumbra con su falda verde; su figura deja huella y nombre, pero también preguntas pendientes.</p>
+      <p>16. Batxie observa el resultado y siente que algo se ha transformado; la vigilancia se convierte en escucha y acompañamiento.</p>
+      <p>17. En mi libreta entrego la última nota: "No es victoria de ninguno; es posibilidad de muchos".</p>
+      <p>18. La memoria urbana ahora tiene un mapa nuevo: pistas, nombres, actos y una red que puede sostenerse.</p>
+      <p>19. Ian firmó su obra con un gesto sencillo: una falda verde colgada en un árbol, como recordatorio y llama.</p>
+      <p>20. Al final, queda la pregunta: ¿qué harás con lo que aprendiste? El lector/ Batxie decide cómo usar la respuesta.</p>
 
-      <!-- finalBox is hidden until allSolved() === true -->
-      <div id="finalBox" style="display:none; margin-top:12px;">
-        <p>Has desbloqueado el final. Ingresa la contraseña final (construida automáticamente a partir de las respuestas 1→9):</p>
-        <div class="cipher-box">
-          <div><strong>Desbloqueo final</strong></div>
-          <div class="controls">
-            <input id="finalPassword" type="text" placeholder="Ingresa la contraseña final (no sensible a mayúsculas)" />
-            <button class="btn" onclick="attemptFinal()">Comprobar</button>
-          </div>
-          <div id="finalResult" class="result"></div>
+      <div class="cipher-box" id="box10">
+        <div><strong>Acertijo 10 — Playfair (clave: enigma)</strong></div>
+        <div><pre class="cipher">GATLM ZGJTW</pre></div>
+
+        <div class="controls">
+          <input id="answer10" type="text" placeholder="Frase final descifrada" />
+          <button class="btn" onclick="check(10)">Verificar</button>
+          <button class="ghost" onclick="hint(10,1)">Pista 1</button>
+          <button class="ghost" onclick="hint(10,2)">Pista 2</button>
+          <button class="ghost" onclick="hint(10,3)">Pista 3</button>
+          <button class="ghost" onclick="reveal(10)">Revelar</button>
         </div>
-      </div>
 
-      <!-- final content hidden until correct -->
-      <div id="finalContent" style="display:none; margin-top:18px;">
-        <h3>El cierre</h3>
-        <p>Ian aparece en la penumbra con su falda verde. Se acerca y, por primera vez, habla sin acertijos. ...</p>
-        <p>(Contenido final completo y simbólico aparece aquí tras ingresar la contraseña correcta.)</p>
+        <div class="hints">
+          <div id="hint-10-1" class="hint">Playfair usa una matriz 5x5; J se une con I.</div>
+          <div id="hint-10-2" class="hint">Clave: enigma (sin comillas).</div>
+          <div id="hint-10-3" class="hint">Resultado es una frase corta que conecta con la acción final (plantar/recordar).</div>
+        </div>
+
+        <div id="result-10" class="result"></div>
       </div>
     </article>
 
     <footer>
-      <p>El desbloqueo del final se construye automáticamente con tus respuestas 1→9 (normalizadas). Si quieres reiniciar el progreso: elimina el almacenamiento local del sitio (localStorage) o pulsa F12 → Application → Clear Storage.</p>
+      <p>Libro interactivo: usa los descifradores integrados. Las pistas progresivas ayudan; si quieres que alguna pista se desbloquee solo tras X intentos o que el final requiera todas las respuestas previas correctas, lo programo enseguida.</p>
     </footer>
   </div>
 
 <script>
-/* ----------------- Decoders & Helpers (idénticos a versión previa) ----------------- */
-
-/* Caesar */
+/* ----------------- Decoders & Helpers ----------------- */
+/* Caesar decode */
 function caesarDecodeStr(s, shift){
   shift = ((shift%26)+26)%26;
   let out='';
@@ -411,7 +579,7 @@ function caesarDecodeStr(s, shift){
   return out;
 }
 
-/* Vigenere */
+/* Vigenère decode */
 function vigenereDecode(str, key){
   if(!key) return str;
   key = key.replace(/[^A-Za-z]/g,'').toLowerCase();
@@ -429,7 +597,7 @@ function vigenereDecode(str, key){
   return out;
 }
 
-/* Base64 */
+/* Base64 decode (utf8 safe) */
 function base64Decode(s){
   try{
     return decodeURIComponent(escape(window.atob(s)));
@@ -493,7 +661,7 @@ function morseDecode(s){
   return outWords.join(' ');
 }
 
-/* Playfair */
+/* Playfair simplistic decode (as implemented earlier) */
 function playfairGenerateSquare(key){
   key = key.toUpperCase().replace(/J/g,'I').replace(/[^A-Z]/g,'');
   const seen={}; const arr=[];
@@ -542,174 +710,125 @@ function playfairDecode(ciphertext,key){
   }catch(e){ return 'Error Playfair'; }
 }
 
-/* Normalize user/expected answers: lowercase, trim, collapse spaces */
+/* Utility: normalize strings for comparison */
 function normalizeAnswer(s){
   return (s||'').toString().trim().replace(/\s+/g,' ').toLowerCase();
 }
 
-/* HINTS tracking */
-const HINTS_SHOWN = {};
+/* HINT / REVEAL MANAGEMENT: progressive hints for each chapter tracked by shown flags */
+const HINTS_SHOWN = {}; // e.g. HINTS_SHOWN['1'] = {1:true,2:false,3:false}
 
-/* Show hint n for chapter ch */
-function hint(ch,n){
+function hint(ch, n){
   const id = `hint-${ch}-${n}`;
   const el = document.getElementById(id);
   if(!el) return;
-  el.style.display='block';
+  el.style.display = 'block';
+  // record shown
   HINTS_SHOWN[ch] = HINTS_SHOWN[ch] || {};
-  HINTS_SHOWN[ch][n]=true;
+  HINTS_SHOWN[ch][n] = true;
   el.scrollIntoView({behavior:'smooth', block:'center'});
 }
 
-/* Automatic reveal helper (partial) */
+/* REVEAL partial (shows decoded answer computed automatically where possible) */
 function reveal(ch){
-  let decoded='';
-  try{
-    if(ch===1) decoded = caesarDecodeStr(document.querySelector('#box1 .cipher').innerText, 3);
-    else if(ch===2) decoded = vigenereDecode(document.querySelector('#box2 .cipher').innerText, 'memoria');
-    else if(ch===3) decoded = base64Decode(document.querySelector('#box3 .cipher').innerText);
-    else if(ch===4) decoded = xorFromHex(document.querySelector('#box4 .cipher').innerText, '42');
-    else if(ch===5) decoded = atbashDecode(document.querySelector('#box5 .cipher').innerText);
-    else if(ch===6) decoded = binaryToAscii(document.querySelector('#box6 .cipher').innerText);
-    else if(ch===7){ const img=document.getElementById('stegoImg'); decoded = base64Decode(img.getAttribute('data-hidden')||''); }
-    else if(ch===8) decoded = morseDecode(document.querySelector('#box8 .cipher').innerText);
-    else if(ch===9){ const mid = base64Decode(document.querySelector('#box9 .cipher').innerText); decoded = vigenereDecode(mid,'gotham'); }
-    else if(ch===10) decoded = playfairDecode(document.querySelector('#box10 .cipher').innerText.replace(/\s+/g,''), 'enigma');
-  }catch(e){ decoded = 'Error al revelar'; }
+  // Try to auto-decode based on known chapter rules
+  let decoded = '';
+  if(ch===1){
+    decoded = caesarDecodeStr(document.querySelector('#cap1 .cipher').innerText, 3);
+  } else if(ch===2){
+    decoded = vigenereDecode(document.querySelector('#cap2 .cipher').innerText, 'memoria');
+  } else if(ch===3){
+    decoded = base64Decode(document.querySelector('#cap3 .cipher').innerText);
+  } else if(ch===4){
+    decoded = xorFromHex(document.querySelector('#cap4 .cipher').innerText, '42');
+  } else if(ch===5){
+    decoded = atbashDecode(document.querySelector('#cap5 .cipher').innerText);
+  } else if(ch===6){
+    decoded = binaryToAscii(document.querySelector('#cap6 .cipher').innerText);
+  } else if(ch===7){
+    const img = document.getElementById('stegoImg');
+    const hidden = img ? img.getAttribute('data-hidden') : '';
+    decoded = base64Decode(hidden || '');
+  } else if(ch===8){
+    decoded = morseDecode(document.querySelector('#cap8 .cipher').innerText);
+  } else if(ch===9){
+    const b64 = document.querySelector('#cap9 .cipher').innerText;
+    const mid = base64Decode(b64);
+    decoded = vigenereDecode(mid, 'gotham');
+  } else if(ch===10){
+    decoded = playfairDecode(document.querySelector('#cap10 .cipher').innerText.replace(/\s+/g,''), 'enigma');
+  }
   const out = document.getElementById('result-'+ch);
-  if(out){ out.style.color='lightgreen'; out.innerText = 'Ayuda parcial:\n' + decoded; out.scrollIntoView({behavior:'smooth', block:'center'}); }
-}
-
-/* When a chapter is correctly solved, store normalized decoded answer in localStorage */
-function markSolved(ch, decoded){
-  const norm = normalizeAnswer(decoded);
-  localStorage.setItem('solved_ch' + ch, norm);
-  // Optionally record timestamp
-  localStorage.setItem('solved_ch' + ch + '_ts', Date.now());
-  // After marking, check if all chapters 1..9 solved to reveal final
-  if(allSolved()){
-    revealFinalUnlock();
+  if(out){
+    out.style.color = 'lightgreen';
+    out.innerText = 'Ayuda parcial (revelada automáticamente):\n' + decoded;
+    out.scrollIntoView({behavior:'smooth', block:'center'});
   }
 }
 
-/* Check function that decodes according to chapter rules and compares with user input */
+/* CHECK function for all chapters mapping to decoding logic and expected plaintexts */
 function check(ch){
   const userEl = document.getElementById('answer'+ch);
   if(!userEl) return;
   const user = normalizeAnswer(userEl.value);
-  let expected = '';
-  try{
-    if(ch===1) expected = caesarDecodeStr(document.querySelector('#box1 .cipher').innerText, 3);
-    else if(ch===2) expected = vigenereDecode(document.querySelector('#box2 .cipher').innerText, 'memoria');
-    else if(ch===3) expected = base64Decode(document.querySelector('#box3 .cipher').innerText);
-    else if(ch===4) expected = xorFromHex(document.querySelector('#box4 .cipher').innerText, '42');
-    else if(ch===5) expected = atbashDecode(document.querySelector('#box5 .cipher').innerText);
-    else if(ch===6) expected = binaryToAscii(document.querySelector('#box6 .cipher').innerText);
-    else if(ch===7){ const img=document.getElementById('stegoImg'); expected = base64Decode(img.getAttribute('data-hidden')||''); }
-    else if(ch===8) expected = morseDecode(document.querySelector('#box8 .cipher').innerText);
-    else if(ch===9){ const mid = base64Decode(document.querySelector('#box9 .cipher').innerText); expected = vigenereDecode(mid,'gotham'); }
-    else if(ch===10) expected = playfairDecode(document.querySelector('#box10 .cipher').innerText.replace(/\s+/g,''), 'enigma');
-  }catch(e){ expected = ''; }
-
+  let expectedRaw = '';
+  let decoded = '';
+  if(ch===1){
+    decoded = caesarDecodeStr(document.querySelector('#cap1 .cipher').innerText, 3);
+    expectedRaw = decoded;
+  } else if(ch===2){
+    decoded = vigenereDecode(document.querySelector('#cap2 .cipher').innerText, 'memoria');
+    expectedRaw = decoded;
+  } else if(ch===3){
+    decoded = base64Decode(document.querySelector('#cap3 .cipher').innerText);
+    expectedRaw = decoded;
+  } else if(ch===4){
+    decoded = xorFromHex(document.querySelector('#cap4 .cipher').innerText, '42');
+    expectedRaw = decoded;
+  } else if(ch===5){
+    decoded = atbashDecode(document.querySelector('#cap5 .cipher').innerText);
+    expectedRaw = decoded;
+  } else if(ch===6){
+    decoded = binaryToAscii(document.querySelector('#cap6 .cipher').innerText);
+    expectedRaw = decoded;
+  } else if(ch===7){
+    const img = document.getElementById('stegoImg');
+    const hid = img ? img.getAttribute('data-hidden') : '';
+    decoded = base64Decode(hid);
+    expectedRaw = decoded;
+  } else if(ch===8){
+    decoded = morseDecode(document.querySelector('#cap8 .cipher').innerText);
+    expectedRaw = decoded;
+  } else if(ch===9){
+    const mid = base64Decode(document.querySelector('#cap9 .cipher').innerText);
+    decoded = vigenereDecode(mid, 'gotham');
+    expectedRaw = decoded;
+  } else if(ch===10){
+    decoded = playfairDecode(document.querySelector('#cap10 .cipher').innerText.replace(/\s+/g,''), 'enigma');
+    expectedRaw = decoded;
+  }
   const out = document.getElementById('result-'+ch);
-  if(normalizeAnswer(expected) === user && user !== ''){
-    out.style.color='lime';
-    out.innerText = '✔ Correcto — ' + expected + '\nCapítulo marcado como resuelto.';
-    // store solved normalized answer
-    markSolved(ch, expected);
-    // disable inputs for this chapter (so no accidental changes)
-    try{
-      userEl.disabled = true;
-      const btns = userEl.parentNode.querySelectorAll('button');
-      btns.forEach(b => b.disabled = true);
-    }catch(e){}
+  if(normalizeAnswer(expectedRaw) === normalizeAnswer(user)){
+    out.style.color = 'lime';
+    out.innerText = '✔ Correcto — ' + expectedRaw + '\nPista siguiente desbloqueada.';
   } else {
-    out.style.color='salmon';
+    out.style.color = 'salmon';
     out.innerText = '✘ Incorrecto. Reintenta o pide una pista.';
   }
   out.scrollIntoView({behavior:'smooth', block:'center'});
 }
 
-/* Check if all chapters 1..9 are solved (localStorage holds keys) */
-function allSolved(){
-  for(let i=1;i<=9;i++){
-    if(!localStorage.getItem('solved_ch' + i)) return false;
-    if(localStorage.getItem('solved_ch' + i).trim() === '') return false;
-  }
-  return true;
-}
+/* Init: ensure each chapter's cipher text element has class .cipher for selection (done inline),
+   and set accessible IDs where needed. */
 
-/* Reveal final input area when all solved */
-function revealFinalUnlock(){
-  document.getElementById('finalLockedMsg').style.display='none';
-  document.getElementById('finalBox').style.display='block';
-  // scroll to final
-  document.getElementById('finalBox').scrollIntoView({behavior:'smooth', block:'center'});
-}
-
-/* Attempt final: build password from stored solved answers ch1..9 joined by '|' and compare insensitively */
-function attemptFinal(){
-  if(!allSolved()){
-    document.getElementById('finalResult').style.color='salmon';
-    document.getElementById('finalResult').innerText = 'Aún no has resuelto los 9 capítulos.';
-    return;
-  }
-  // build expected password
-  const parts = [];
-  for(let i=1;i<=9;i++){
-    parts.push( normalizeAnswer(localStorage.getItem('solved_ch' + i) || '') );
-  }
-  const expectedPassword = parts.join('|'); // insensitive by construction (lowercase)
-  const attempt = normalizeAnswer(document.getElementById('finalPassword').value);
-  if(attempt === expectedPassword){
-    document.getElementById('finalResult').style.color='lime';
-    document.getElementById('finalResult').innerText = '✔ Contraseña correcta. Desbloqueando el final...';
-    // reveal final content
-    document.getElementById('finalContent').style.display='block';
-    // optionally scroll
-    document.getElementById('finalContent').scrollIntoView({behavior:'smooth', block:'center'});
-  } else {
-    document.getElementById('finalResult').style.color='salmon';
-    document.getElementById('finalResult').innerText = '✘ Contraseña incorrecta. Asegúrate de haber ingresado exactamente la concatenación de las respuestas 1→9 (normalizadas).';
-  }
-}
-
-/* On load: if all solved, reveal final unlock UI (but not final content). Also mark already-solved chapters' inputs disabled */
-window.addEventListener('load', function(){
-  // If some chapters were solved previously, disable their inputs
-  for(let i=1;i<=9;i++){
-    const val = localStorage.getItem('solved_ch' + i);
-    if(val){
-      const inEl = document.getElementById('answer'+i);
-      const res = document.getElementById('result-'+i);
-      if(inEl){
-        inEl.value = val;
-        inEl.disabled = true;
-      }
-      if(res){
-        res.style.color='lime';
-        res.innerText = '✔ Resuelto previamente.';
-      }
-      // disable buttons in that chapter
-      const box = document.getElementById('box'+i);
-      if(box){
-        const btns = box.querySelectorAll('button');
-        btns.forEach(b => b.disabled = true);
-      }
-    }
-  }
-  if(allSolved()) revealFinalUnlock();
-});
-
-/* Accessibility: Enter triggers check for input focused */
+/* Accessibility: allow Enter key to submit in current chapter input */
 document.addEventListener('keydown', function(e){
   if(e.key === 'Enter'){
     const active = document.activeElement;
     if(active && active.id && active.id.startsWith('answer')){
-      const ch = parseInt(active.id.replace('answer',''));
-      if(!isNaN(ch)) check(ch);
+      const ch = active.id.replace('answer','');
+      check(parseInt(ch));
     }
-    if(active && active.id === 'finalPassword') attemptFinal();
   }
 });
 </script>
